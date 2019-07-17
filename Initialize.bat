@@ -27,6 +27,7 @@ CALL type nul > database.sqlite
 cd ..
 call php artisan migrate:fresh --seed
 call php artisan storage:link
+call php artisan passport:install
 ECHO ---------------------
 ECHO Initialization done!
 ECHO ---------------------
