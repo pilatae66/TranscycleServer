@@ -44,9 +44,9 @@ public $successStatus = 200;
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus);
+        return response()->json(['success' => $success], $this->successStatus);
     }
     /**
      * details api
@@ -54,9 +54,9 @@ public $successStatus = 200;
      *
     @return \Illuminate\Http\Response
      */
-    public function details()
+    public function adminIndex()
     {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this-> successStatus);
+        $users = User::all();
+        return response()->json(['data' => $users], $this->successStatus);
     }
 }
