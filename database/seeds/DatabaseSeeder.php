@@ -17,15 +17,13 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         $this->call([
-            UserSeeder::class
+            RoleSeeder::class
         ]);
 
         $this->call([
-            RoleSeeder::class
+            UserSeeder::class
         ]);
-        factory(User::class, 1)->create()->each(function($user){
-            $user->roles()->attach(Role::first());
-        });
+
         factory(Product::class, 100)->create();
     }
 }
