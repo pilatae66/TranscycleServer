@@ -14,3 +14,10 @@ Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 });
 Route::get('/admin', 'API\UserController@adminIndex');
+
+//Product API routes
+Route::apiResources([
+    'products' => 'API\ProductController',
+    'roles' => 'API\RoleController',
+    'users' => 'API\UserController'
+]);

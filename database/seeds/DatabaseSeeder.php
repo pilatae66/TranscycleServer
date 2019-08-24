@@ -1,5 +1,7 @@
 <?php
 
+use App\Product;
+use App\Role;
 use Illuminate\Database\Seeder;
 use App\User;
 
@@ -14,6 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 
-        factory(User::class, 1)->create();
+        $this->call([
+            RoleSeeder::class
+        ]);
+        factory(User::class, 1)->create()->each(function($user){
+            $user->roles()->attach(Role::first());
+        });
+        factory(Product::class, 100)->create();
     }
 }

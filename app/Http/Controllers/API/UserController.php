@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -15,9 +16,10 @@ public $successStatus = 200;
     @return \Illuminate\Http\Response
      */
     public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+        if(Auth::attempt(['username' => request('username'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            $success['user'] =  new UserResource($user);
             return response()->json(['success' => $success], $this-> successStatus);
         }
         else{
@@ -34,7 +36,7 @@ public $successStatus = 200;
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|username',
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
@@ -54,9 +56,56 @@ public $successStatus = 200;
      *
     @return \Illuminate\Http\Response
      */
-    public function adminIndex()
+    public function index()
     {
-        $users = User::all();
-        return response()->json(['data' => $users], $this->successStatus);
+        return UserResource::collection(User::all());
+    }
+
+    public function show(User $user)
+    {
+        return new UserResource($user);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'firstname' => 'required|string|max:255',
+            'middlename' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|max:255',
+            'role' => 'required|numeric'
+        ]);
+
+        $user = User::create($request->all());
+
+        $user->roles()->attach($request->role);
+
+        return new UserResource($user);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $this->validate($request, [
+            'firstname' => 'string|max:255',
+            'middlename' => 'string|max:255',
+            'lastname' => 'string|max:255',
+            'username' => 'string|max:255',
+            'password' => 'string|max:255',
+            'role' => 'numeric'
+        ]);
+
+        $user->update($request->all());
+
+        if ($request->role) $user->roles()->sync($request->role);
+
+        return new UserResource($user);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return response()->json(['message' => 'Deleted Successfully!']);
     }
 }
