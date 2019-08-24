@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         $this->call([
+            UserSeeder::class
+        ]);
+
+        $this->call([
             RoleSeeder::class
         ]);
         factory(User::class, 1)->create()->each(function($user){
