@@ -60,7 +60,7 @@ public $successStatus = 200;
     {
         $users = User::all();
         $admins = $users->filter(function($user){
-            return $user->roles->name === 'Admin';
+            return $user->roles[0]->name === 'Admin';
         });
         return UserResource::collection($admins);
     }
