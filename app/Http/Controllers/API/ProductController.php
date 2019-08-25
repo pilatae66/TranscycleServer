@@ -29,7 +29,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'type.required' => 'Product Type field is required'
+            'type.required' => 'Product Type field is required',
+            'brand.required' => 'Product Brand field is required',
+            'brand.string' => 'Product Brand must be a string',
+            'model.required' => 'Product Model field is required',
+            'model.string' => 'Product Model must be a string',
+            'color.required' => 'Product Color field is required',
+            'color.string' => 'Product Color must be a string',
         ];
         $this->validate($request, [
             'type' => 'required|string|max:255',
