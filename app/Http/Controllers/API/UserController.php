@@ -58,7 +58,11 @@ public $successStatus = 200;
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        $users = User::all();
+        $admins = $users->filter(function($user){
+            return $user->role->name === 'Admin'
+        });
+        return UserResource::collection($admins);
     }
 
     public function show(User $user)
