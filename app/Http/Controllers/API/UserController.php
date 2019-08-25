@@ -69,6 +69,7 @@ public $successStatus = 200;
     public function store(Request $request)
     {
         $this->validate($request, [
+            'type' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'middlename' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',

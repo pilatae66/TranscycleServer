@@ -28,6 +28,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'type.required' => 'Product Type field is required'
+        ];
         $this->validate($request, [
             'type' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
@@ -35,7 +38,7 @@ class ProductController extends Controller
             'color' => 'required|string|max:255',
             'price' => 'required|numeric',
             'downpayment' => 'required|numeric',
-        ]);
+        ],$messages);
 
         $product = Product::create($request->all());
 
