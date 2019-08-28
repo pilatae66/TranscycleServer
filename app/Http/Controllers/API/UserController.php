@@ -56,11 +56,21 @@ public $successStatus = 200;
      *
     @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function indexAdmin()
     {
         $users = User::all();
         $admins = $users->filter(function($user){
-            return $user->roles[0]->name === 'admin';
+            return $user->roles[0]->name != 'customer';
+        });
+        return UserResource::collection($admins);
+    }
+
+    public function indexCustomer()
+    {
+        $users = User::all();
+        $admins = $users->filter(function($user){
+            return $user->roles[0]->name === 'customer';
         });
         return UserResource::collection($admins);
     }
@@ -73,7 +83,6 @@ public $successStatus = 200;
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'middlename' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',

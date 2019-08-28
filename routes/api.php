@@ -21,3 +21,6 @@ Route::apiResources([
     'roles' => 'API\RoleController',
     'users' => 'API\UserController'
 ]);
+
+Route::get('/admins', 'API\UserController@indexAdmin');
+Route::get('/customers', 'API\UserController@indexCustomer');
