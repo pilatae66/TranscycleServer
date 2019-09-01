@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('color');
             $table->bigInteger('price');
             $table->integer('downpayment');
+            $table->date('purchased_date');
             $table->softDeletes();
             $table->timestamps();
         });

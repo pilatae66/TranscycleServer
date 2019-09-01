@@ -12,6 +12,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'model' => $faker->bothify('??###'),
         'color' => $faker->randomElement(['Red', 'Black', 'Blue']),
         'price' => $faker->numberBetween($min = 15000, $max = 70000),
+        'purchased_date' => $faker->date('Y-m-d', 'now'),
         'downpayment' => $faker->numberBetween(500, 2000)
     ];
 });

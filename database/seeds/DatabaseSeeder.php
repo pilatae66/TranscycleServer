@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class
         ]);
 
+        $this->call([
+            CustomerSeeder::class
+        ]);
+
         factory(Product::class, 100)->create();
     }
 }

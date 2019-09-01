@@ -18,9 +18,9 @@ Route::get('/admin', 'API\UserController@adminIndex');
 //Product API routes
 Route::apiResources([
     'products' => 'API\ProductController',
+    'customers' => 'API\CostumerController',
     'roles' => 'API\RoleController',
     'users' => 'API\UserController'
 ]);
 
 Route::get('/admins', 'API\UserController@indexAdmin');
-Route::get('/customers', 'API\UserController@indexCustomer');
