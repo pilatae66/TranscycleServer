@@ -17,8 +17,12 @@ class CreateCustFamiliesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name');
-            $table->string('role');
+            $table->string('father_name');
+            $table->string('mother_name');
+            $table->string('spouse_name');
+            $table->string('dependent1');
+            $table->string('dependent2');
+            $table->string('dependent3');
             $table->timestamps();
         });
     }

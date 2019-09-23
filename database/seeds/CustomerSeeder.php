@@ -31,17 +31,16 @@ class CustomerSeeder extends Seeder
             'place_of_birth' => 'Iligan City',
             'civil_status' => 'single',
             'educational_attainment' => 'College Graduate',
-            'borrower_type' => 'self-employed',
+            'employment_type' => 'self-employed',
         ]);
 
         $user->cust_family()->create([
-            'name' => 'Father',
-            'role' => 'father'
-        ]);
-
-        $user->cust_family()->create([
-            'name' => 'Mother',
-            'role' => 'mother'
+            'father_name' => 'Father',
+            'mother_name' => 'Mother',
+            'spouse_name' => 'Spouse',
+            'dependent1' => '1',
+            'dependent2' => '2',
+            'dependent3' => '3',
         ]);
 
         $user->cust_address()->create([
@@ -99,17 +98,16 @@ class CustomerSeeder extends Seeder
             'place_of_birth' => 'Iligan City2',
             'civil_status' => 'single2',
             'educational_attainment' => 'College Graduate2',
-            'borrower_type' => 'employed',
+            'employment_type' => 'employed',
         ]);
 
         $user->cust_family()->create([
-            'name' => 'Father2',
-            'role' => 'father'
-        ]);
-
-        $user->cust_family()->create([
-            'name' => 'Mother2',
-            'role' => 'mother'
+            'father_name' => 'Father',
+            'mother_name' => 'Mother',
+            'spouse_name' => 'Spouse',
+            'dependent1' => '1',
+            'dependent2' => '2',
+            'dependent3' => '3',
         ]);
 
         $user->cust_address()->create([
@@ -139,6 +137,25 @@ class CustomerSeeder extends Seeder
         $user->cust_liability()->create([
             'liability' => 'electricity2',
             'amount' => '2000'
+        ]);
+
+        $user->cust_references()->create([
+            'name' => 'reference1',
+            'address' => 'address1',
+            'contact_number' => 'contact_number1',
+            'relation' => 'relation1',
+        ]);
+        $user->cust_references()->create([
+            'name' => 'reference2',
+            'address' => 'address2',
+            'contact_number' => 'contact_number=2',
+            'relation' => 'relation2',
+        ]);
+        $user->cust_references()->create([
+            'name' => 'reference3',
+            'address' => 'address3',
+            'contact_number' => 'contact_number3',
+            'relation' => 'relation3',
         ]);
 
         $user->cust_employed()->create([

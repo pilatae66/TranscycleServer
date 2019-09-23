@@ -81,6 +81,11 @@ class User extends Authenticatable
 
     public function cust_employment_details()
     {
-        return $this->cust_details->borrower_type === 'self-employed' ? $this->hasOne(SelfEmployedCust::class) : $this->hasOne(EmployedCust::class);
+        return $this->cust_details->employment_type === 'Self-Employed' ? $this->hasOne(SelfEmployedCust::class) : $this->hasOne(EmployedCust::class);
+    }
+
+    public function cust_references()
+    {
+        return $this->hasMany(CustReference::class);
     }
 }

@@ -21,7 +21,8 @@ class CostumerResource extends JsonResource
             'family' => $this->cust_family,
             'income' => $this->cust_income,
             'liability' => $this->cust_liability,
-            'employment_details' => $this->cust_employment_details
+            'employment_details' => $this->cust_employment_details,
+            'references' => $this->cust_references
         ];
     }
 }

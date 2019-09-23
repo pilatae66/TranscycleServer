@@ -26,7 +26,7 @@ class CreateCustDetailsTable extends Migration
             $table->string('place_of_birth');
             $table->string('civil_status');
             $table->string('educational_attainment');
-            $table->string('borrower_type');
+            $table->string('employment_type');
             $table->timestamps();
         });
     }
