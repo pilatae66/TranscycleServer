@@ -23,7 +23,7 @@ class CustomerSeeder extends Seeder
 
         $user->cust_details()->create([
             'mobile_number' => '09754157431',
-            'landline_number' => '(063)2245748',
+            'landline_number' => '(063) 2245748',
             'email' => 'test@test.com',
             'religion' => 'catholic',
             'date_of_birth' => '1991-05-11',
@@ -91,7 +91,7 @@ class CustomerSeeder extends Seeder
 
         $user->cust_details()->create([
             'mobile_number' => '097541574312',
-            'landline_number' => '(063)22457482',
+            'landline_number' => '(063) 22457482',
             'email' => 'test2@test.com',
             'religion' => 'catholic2',
             'date_of_birth' => '1992-05-11',
