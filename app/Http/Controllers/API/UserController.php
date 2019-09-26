@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 class UserController extends Controller
@@ -57,22 +58,10 @@ public $successStatus = 200;
     @return \Illuminate\Http\Response
      */
 
-    public function indexAdmin()
+    public function index()
     {
-        $users = User::all();
-        $admins = $users->filter(function($user){
-            return $user->roles[0]->name != 'customer';
-        });
-        return UserResource::collection($admins);
-    }
-
-    public function indexCustomer()
-    {
-        $users = User::all();
-        $admins = $users->filter(function($user){
-            return $user->roles[0]->name === 'customer';
-        });
-        return UserResource::collection($admins);
+        $users = User::whereHas('roles', function(Builder $query){ $query->where('name', '!=', 'customer'); })->get();
+        return UserResource::collection($users);
     }
 
     public function show(User $user)
