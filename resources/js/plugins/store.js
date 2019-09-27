@@ -52,6 +52,8 @@ export default new Vuex.Store({
                 data: payload
             }).then(res => {
                 commit('LOGIN', res.data.success)
+            }).catch(err => {
+                console.log(err.response)
             })
         },
         checkAppStatus({commit}){
