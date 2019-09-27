@@ -7,10 +7,19 @@ import router from './routes/routes'
 import App from './components/App'
 import vuetify from './plugins/vuetify'
 import store from './plugins/store'
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+Vue.use(VueGoogleMaps, {
+    load:{
+        key: 'AIzaSyDfAlTFshIjpAoa4wV4wCTXS_1WSpqqlu8',
+        libraries: 'places',
+    }
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,8 +31,6 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import CollectorServices from '../src/services/CollectorServices'
 import axios from "axios";
 import Vuex from 'vuex'
+import router from '../routes/routes'
 
 Vue.use(Vuex)
 let url = !process.env.IS_TEST ? 'http://localhost:8000' : 'https://mighty-savannah-84780.herokuapp.com'
@@ -26,6 +27,8 @@ export default new Vuex.Store({
             }, 500);
             state.drawer = true
             localStorage.setItem('auth_user', JSON.stringify(payload))
+            payload.relogin == true ? '' : router.push('/map')
+
         },
         LOGOUT(state){
             state.auth_user = {
@@ -37,6 +40,7 @@ export default new Vuex.Store({
                 state.loggedIn = false
             }, 500);
             localStorage.removeItem('auth_user')
+            router.push('/')
         }
     },
     actions:{
@@ -51,8 +55,11 @@ export default new Vuex.Store({
             })
         },
         checkAppStatus({commit}){
-            let auth_user = localStorage.getItem('auth_user', 0)
-            if(auth_user != null) commit('LOGIN', JSON.parse(auth_user))
+            let auth_user = JSON.parse(localStorage.getItem('auth_user', 0))
+            if(auth_user != null){
+                auth_user.relogin = true
+                commit('LOGIN', auth_user)
+            }
         },
         logout({commit}){
             commit('LOGOUT')

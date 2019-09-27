@@ -6,6 +6,7 @@
       clipped-right
       color="#3474eb"
       dark
+      fixed
     >
       <v-toolbar-title>Transcycle Debtor Locator System</v-toolbar-title>
       <v-spacer></v-spacer>
