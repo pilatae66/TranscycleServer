@@ -61,7 +61,6 @@ export default new Vuex.Store({
         },
         checkAppStatus({commit}){
             let auth_user = JSON.parse(localStorage.getItem('auth_user', 0))
-            console.log(process.env.APP_ENV);
             if(auth_user != null){
                 auth_user.relogin = true
                 commit('LOGIN', auth_user)
