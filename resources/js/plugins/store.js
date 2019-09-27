@@ -5,7 +5,9 @@ import Vuex from 'vuex'
 import router from '../routes/routes'
 
 Vue.use(Vuex)
-let url = process.env.APP_ENV !== 'production' ? 'http://localhost:8000' : 'http://mighty-savannah-84780.herokuapp.com'
+let localURL = 'http://localhost:8000'
+let serverURL = 'http://mighty-savannah-84780.herokuapp.com'
+let url = serverURL
 
 
 export default new Vuex.Store({
