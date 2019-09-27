@@ -7,6 +7,7 @@ import router from '../routes/routes'
 Vue.use(Vuex)
 let url = process.env.APP_ENV !== 'production' ? 'http://localhost:8000' : 'http://mighty-savannah-84780.herokuapp.com'
 
+
 export default new Vuex.Store({
     state:{
         loading: false,
@@ -61,6 +62,7 @@ export default new Vuex.Store({
             if(auth_user != null){
                 auth_user.relogin = true
                 commit('LOGIN', auth_user)
+                console.log(process.env.APP_ENV);
             }
         },
         logout({commit}){
