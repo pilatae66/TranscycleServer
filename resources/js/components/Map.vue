@@ -82,7 +82,9 @@
         this.directionsRenderer = new google.maps.DirectionsRenderer()
         this.directionsRenderer.setMap(map)
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
+            navigator.geolocation.watchPosition((position) => {
+                console.log(position);
+
                 let origin = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
@@ -98,11 +100,14 @@
             });
         } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        this.handleLocationError(false, infoWindow, map.getCenter());
         }
       });
     },
     methods: {
+        handleLocationError(){
+            console.log(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.')
+        },
       toggleInfoWindow: function (marker, idx) {
         this.$gmapApiPromiseLazy().then(() => {
 
