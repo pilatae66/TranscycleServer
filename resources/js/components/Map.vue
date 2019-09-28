@@ -1,11 +1,9 @@
 <template>
-  <v-row>
-      <v-col cols="12" style='width:"100%"; height:100%; margin:0; padding:0'>
         <gmap-map
             ref="gmap"
             :center="center"
             :zoom="12"
-            style="width:100vh;  height: 100vh;"
+            style="width: 80vw; height: 80vh; margin:0; padding:0"
             :options="{
                 zoomControl: true,
                 mapTypeControl: false,
@@ -35,8 +33,6 @@
         </gmap-info-window>
 
         </gmap-map>
-      </v-col>
-  </v-row>
 </template>
 <script>
   export default {
@@ -68,6 +64,7 @@
             position: {lat: 52.512942, lng: 6.089625}
           },
         ],
+        origin:{},
         directionsService:{},
         directionsRenderer:{},
         bounds:{}
@@ -85,16 +82,17 @@
             navigator.geolocation.watchPosition((position) => {
                 console.log(position);
 
-                let origin = {
+                this.origin = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 }
                 this.markers[0].position = origin
 
                 for (let m of this.markers) {
-                this.bounds.extend(m.position)
+                    this.bounds.extend(m.position)
                 }
                 this.map.fitBounds(this.bounds);
+                this.map.setZoom(15)
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -108,8 +106,8 @@
         handleLocationError(){
             console.log(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.')
         },
-      toggleInfoWindow: function (marker, idx) {
-        this.$gmapApiPromiseLazy().then(() => {
+        toggleInfoWindow: function (marker, idx) {
+            this.$gmapApiPromiseLazy().then(() => {
 
         })
         this.infoWindowPos = marker.position;
@@ -132,7 +130,7 @@
                 name: 'Test',
                 description: "description 2",
                 date_build: "",
-                position: {lat: place.latLng.lat(), lng: place.latLng.lng()}
+                position: { lat: place.latLng.lat(), lng: place.latLng.lng() }
             })
 
             // Try HTML5 geolocation.

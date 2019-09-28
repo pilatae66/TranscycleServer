@@ -2210,10 +2210,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Map",
   data: function data() {
@@ -2247,6 +2243,7 @@ __webpack_require__.r(__webpack_exports__);
           lng: 6.089625
         }
       }],
+      origin: {},
       directionsService: {},
       directionsRenderer: {},
       bounds: {}
@@ -2267,7 +2264,7 @@ __webpack_require__.r(__webpack_exports__);
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(function (position) {
           console.log(position);
-          var origin = {
+          _this.origin = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
@@ -2298,6 +2295,8 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           _this.map.fitBounds(_this.bounds);
+
+          _this.map.setZoom(15);
         }, function () {
           handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -38701,103 +38700,6 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      this.loggedIn
-        ? _c(
-            "v-navigation-drawer",
-            {
-              attrs: {
-                value: _vm.drawer,
-                src: "https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg",
-                app: "",
-                dark: ""
-              },
-              scopedSlots: _vm._u(
-                [
-                  {
-                    key: "append",
-                    fn: function() {
-                      return [
-                        _c(
-                          "div",
-                          { staticClass: "pa-2" },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: { block: "" },
-                                on: { click: _vm.logout }
-                              },
-                              [_vm._v("Logout")]
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    },
-                    proxy: true
-                  }
-                ],
-                null,
-                false,
-                445774142
-              )
-            },
-            [
-              _c(
-                "v-list-item",
-                [
-                  _c(
-                    "v-list-item-avatar",
-                    [
-                      _c("v-img", {
-                        attrs: {
-                          src: "https://randomuser.me/api/portraits/men/78.jpg"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item-content",
-                    [
-                      _c("v-list-item-title", [
-                        _vm._v(_vm._s(this.auth_user.user.full_name))
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-divider"),
-              _vm._v(" "),
-              _vm._l(_vm.items, function(item) {
-                return _c(
-                  "v-list-item",
-                  { key: item.title, attrs: { router: "", to: item.to } },
-                  [
-                    _c(
-                      "v-list-item-icon",
-                      [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-list-item-content",
-                      [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
-                      1
-                    )
-                  ],
-                  1
-                )
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "v-content",
         [
@@ -38984,81 +38886,56 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
+    "gmap-map",
+    {
+      ref: "gmap",
+      staticStyle: { width: "80vw", height: "80vh", margin: "0", padding: "0" },
+      attrs: {
+        center: _vm.center,
+        zoom: 12,
+        options: {
+          zoomControl: true,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: true,
+          disableDefaultUi: true
+        }
+      },
+      on: { click: _vm.getplace }
+    },
     [
+      _vm._l(_vm.markers, function(m, index) {
+        return _c("gmap-marker", {
+          key: index,
+          attrs: { position: m.position },
+          on: {
+            click: function($event) {
+              return _vm.toggleInfoWindow(m)
+            }
+          }
+        })
+      }),
+      _vm._v(" "),
       _c(
-        "v-col",
+        "gmap-info-window",
         {
-          staticStyle: {
-            width: '"100%"',
-            height: "100%",
-            margin: "0",
-            padding: "0"
+          attrs: {
+            options: _vm.infoOptions,
+            position: _vm.infoWindowPos,
+            opened: _vm.infoWinOpen
           },
-          attrs: { cols: "12" }
+          on: {
+            closeclick: function($event) {
+              _vm.infoWinOpen = false
+            }
+          }
         },
-        [
-          _c(
-            "gmap-map",
-            {
-              ref: "gmap",
-              staticStyle: { width: "100vh", height: "100vh" },
-              attrs: {
-                center: _vm.center,
-                zoom: 12,
-                options: {
-                  zoomControl: true,
-                  mapTypeControl: false,
-                  scaleControl: false,
-                  streetViewControl: false,
-                  rotateControl: false,
-                  fullscreenControl: true,
-                  disableDefaultUi: true
-                }
-              },
-              on: { click: _vm.getplace }
-            },
-            [
-              _vm._l(_vm.markers, function(m, index) {
-                return _c("gmap-marker", {
-                  key: index,
-                  attrs: { position: m.position },
-                  on: {
-                    click: function($event) {
-                      return _vm.toggleInfoWindow(m)
-                    }
-                  }
-                })
-              }),
-              _vm._v(" "),
-              _c(
-                "gmap-info-window",
-                {
-                  attrs: {
-                    options: _vm.infoOptions,
-                    position: _vm.infoWindowPos,
-                    opened: _vm.infoWinOpen
-                  },
-                  on: {
-                    closeclick: function($event) {
-                      _vm.infoWinOpen = false
-                    }
-                  }
-                },
-                [
-                  _c("div", {
-                    domProps: { innerHTML: _vm._s(_vm.infoContent) }
-                  })
-                ]
-              )
-            ],
-            2
-          )
-        ],
-        1
+        [_c("div", { domProps: { innerHTML: _vm._s(_vm.infoContent) } })]
       )
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []

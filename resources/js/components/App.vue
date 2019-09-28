@@ -13,7 +13,7 @@
       <v-btn depressed v-if="!this.loggedIn" color="blue" @click="dialog = !dialog">Login</v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       :value="drawer"
       src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
       app
@@ -50,7 +50,7 @@
           <v-btn block @click="logout">Logout</v-btn>
         </div>
       </template>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-content>
       <v-container
