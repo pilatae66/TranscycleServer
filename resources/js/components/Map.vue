@@ -2,27 +2,27 @@
   <v-row>
       <v-col cols="12" style='width:"100%"; height:100%; margin:0; padding:0'>
         <gmap-map
-        ref="gmap"
-        :center="center"
-        :zoom="12"
-        style="width:100vh;  height: 100vh;"
-        :options="{
-            zoomControl: true,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            rotateControl: false,
-            fullscreenControl: true,
-            disableDefaultUi: true,
-        }"
-        @click="getplace"
+            ref="gmap"
+            :center="center"
+            :zoom="12"
+            style="width:100vh;  height: 100vh;"
+            :options="{
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: true,
+                disableDefaultUi: true,
+            }"
+            @click="getplace"
         >
 
         <gmap-marker
             :key="index"
-            v-for="(m, index) in marker"
-            :position="marker.position"
-            @click="toggleInfoWindow(marker)">
+            v-for="(m, index) in markers"
+            :position="m.position"
+            @click="toggleInfoWindow(m)">
         </gmap-marker>
 
         <gmap-info-window
@@ -60,33 +60,12 @@
             height: -35
           }
         },
-        marker:{
-            name:"",
-            description:"",
-            date_build:'',
-            position:{
-                lat:0,
-                lng:0
-            }
-        },
         markers: [
           {
             name: "House of Aleida Greve",
             description: "description 1",
             date_build: "",
             position: {lat: 52.512942, lng: 6.089625}
-          },
-          {
-            name: "House of Potgieter",
-            description: "description 2",
-            date_build: "",
-            position: {lat: 52.511950, lng: 6.091056}
-          },
-          {
-            name: "House of Johannes Cele",
-            description: "description 3",
-            date_build: "",
-            position: {lat: 52.511047, lng: 6.091728}
           },
         ],
         directionsService:{},
@@ -102,10 +81,25 @@
         this.directionsService = new google.maps.DirectionsService()
         this.directionsRenderer = new google.maps.DirectionsRenderer()
         this.directionsRenderer.setMap(map)
-        for (let m of this.markers) {
-          bounds.extend(m.position)
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                let origin = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }
+                this.markers[0].position = origin
+
+                for (let m of this.markers) {
+                this.bounds.extend(m.position)
+                }
+                this.map.fitBounds(this.bounds);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
         }
-        this.map.fitBounds(bounds);
       });
     },
     methods: {
@@ -128,27 +122,23 @@
         }
       },
       getplace(place) {
-          console.log(this.marker);
-          this.marker = {
+            console.log(this.marker);
+            this.markers.push({
                 name: 'Test',
                 description: "description 2",
                 date_build: "",
                 position: {lat: place.latLng.lat(), lng: place.latLng.lng()}
-          }
+            })
 
-            let origin = new google.maps.LatLng(10.325659, 123.919831)
-            let destination = new google.maps.LatLng(10.326031, 123.917642)
+            // Try HTML5 geolocation.
+
+            let destination = new google.maps.LatLng(this.markers[1].position.lat, this.markers[1].position.lng)
             this.directionsService.route({
-                origin: origin,
+                origin: new google.maps.LatLng(origin.lat, origin.lng),
                 destination: destination,
-                travelMode: 'DRIVING'
+                travelMode: 'WALKING'
             }, (response, status) => {
                 if(status == 'OK') {
-                    response.routes.forEach(route => {
-                        console.log(route);
-
-                    });
-                    this.map.fitBounds(this.bounds)
                     this.directionsRenderer.setDirections(response)
                 }
                 console.log(response);

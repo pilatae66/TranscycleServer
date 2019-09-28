@@ -7,7 +7,7 @@ import router from '../routes/routes'
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://mighty-savannah-84780.herokuapp.com'
-let url = serverURL
+let url = localURL
 
 
 export default new Vuex.Store({
@@ -61,6 +61,7 @@ export default new Vuex.Store({
         },
         checkAppStatus({commit}){
             let auth_user = JSON.parse(localStorage.getItem('auth_user', 0))
+            console.log("test")
             if(auth_user != null){
                 auth_user.relogin = true
                 commit('LOGIN', auth_user)

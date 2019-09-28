@@ -46,8 +46,8 @@ class CustomerSeeder extends Seeder
         $user->cust_address()->create([
             'present_address' => 'test_address',
             'permanent_address' => 'test_address',
-            'latitude' => '110,110',
-            'longitude' => '110,110',
+            'lat' => '110,110',
+            'lng' => '110,110',
         ]);
 
         $user->cust_income()->create([
@@ -113,8 +113,8 @@ class CustomerSeeder extends Seeder
         $user->cust_address()->create([
             'present_address' => 'test_address2',
             'permanent_address' => 'test_address2',
-            'latitude' => '120,120',
-            'longitude' => '120,120',
+            'lat' => '120',
+            'lng' => '120',
         ]);
 
         $user->cust_income()->create([

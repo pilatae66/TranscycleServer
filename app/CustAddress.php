@@ -8,8 +8,8 @@ class CustAddress extends Model
 {
     protected $fillable = [
         'present_address',
-        'langtitude',
-        'longitude',
+        'lat',
+        'lng',
         'permanent_address'
     ];
 }

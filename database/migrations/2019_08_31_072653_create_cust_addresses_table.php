@@ -18,8 +18,8 @@ class CreateCustAddressesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('present_address');
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
             $table->string('permanent_address');
             $table->timestamps();
         });
