@@ -20,7 +20,8 @@ Route::apiResources([
     'products' => 'API\ProductController',
     'customers' => 'API\CostumerController',
     'roles' => 'API\RoleController',
-    'users' => 'API\UserController'
+    'users' => 'API\UserController',
+    'purchased_products' => 'API\PurchasedProductController'
 ]);
 
-Route::get('/admins', 'API\UserController@indexAdmin');
+Route::get('/admins', 'API\UserController@index');

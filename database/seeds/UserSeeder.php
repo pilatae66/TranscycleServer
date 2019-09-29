@@ -18,10 +18,44 @@ class UserSeeder extends Seeder
             'middlename' => 'duper',
             'lastname' => 'admin',
             'username' => 'admin',
-            'password' => '$2y$10$s8fufLQhRKZt4nmjO/gQtOJSDkNwNSDWXnXk4t843Wdv0kImefYeW', // admin
+            'password' => bcrypt('admin'), // admin
             'remember_token' => Str::random(10)
         ]);
 
-        $user->roles()->attach(Role::first());
+        $user->roles()->attach(Role::where('name', 'Admin')->first());
+
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'agent',
+            'username' => 'agent',
+            'password' => bcrypt('agent'), // agent
+            'remember_token' => Str::random(10)
+        ]);
+
+        $user->roles()->attach(Role::where('name', 'Agent')->first());
+
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'cashier',
+            'username' => 'cashier',
+            'password' => bcrypt('cashier'), // cashier
+            'remember_token' => Str::random(10)
+        ]);
+
+        $user->roles()->attach(Role::where('name', 'Cashier')->first());
+
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'collector',
+            'username' => 'collector',
+            'password' => bcrypt('collector'), // collector
+            'remember_token' => Str::random(10)
+        ]);
+
+        $user->roles()->attach(Role::where('name', 'Collector')->first());
+
     }
 }

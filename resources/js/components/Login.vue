@@ -53,9 +53,7 @@
         },
         watch:{
             loading(newValue, oldValue){
-                if (newValue == false) {
-                    this.clear()
-                }
+                if (newValue == false) this.clear()
             }
         }
     }

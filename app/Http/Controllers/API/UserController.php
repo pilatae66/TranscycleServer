@@ -60,7 +60,7 @@ public $successStatus = 200;
 
     public function index()
     {
-        $users = User::whereHas('roles', function(Builder $query){ $query->where('name', '!=', 'customer'); })->get();
+        $users = User::whereHas('roles', function(Builder $query){ $query->where('name', '!=', 'Customer'); })->get();
         return UserResource::collection($users);
     }
 

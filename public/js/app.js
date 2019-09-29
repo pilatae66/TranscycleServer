@@ -2156,9 +2156,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   watch: {
     loading: function loading(newValue, oldValue) {
-      if (newValue == false) {
-        this.clear();
-      }
+      if (newValue == false) this.clear();
     }
   }
 });
@@ -38699,6 +38697,103 @@ var render = function() {
         ],
         1
       ),
+      _vm._v(" "),
+      this.loggedIn
+        ? _c(
+            "v-navigation-drawer",
+            {
+              attrs: {
+                value: _vm.drawer,
+                src: "https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg",
+                app: "",
+                dark: ""
+              },
+              scopedSlots: _vm._u(
+                [
+                  {
+                    key: "append",
+                    fn: function() {
+                      return [
+                        _c(
+                          "div",
+                          { staticClass: "pa-2" },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { block: "" },
+                                on: { click: _vm.logout }
+                              },
+                              [_vm._v("Logout")]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    },
+                    proxy: true
+                  }
+                ],
+                null,
+                false,
+                445774142
+              )
+            },
+            [
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-avatar",
+                    [
+                      _c("v-img", {
+                        attrs: {
+                          src: "https://randomuser.me/api/portraits/men/78.jpg"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-content",
+                    [
+                      _c("v-list-item-title", [
+                        _vm._v(_vm._s(this.auth_user.user.full_name))
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _vm._l(_vm.items, function(item) {
+                return _c(
+                  "v-list-item",
+                  { key: item.title, attrs: { router: "", to: item.to } },
+                  [
+                    _c(
+                      "v-list-item-icon",
+                      [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-item-content",
+                      [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-content",

@@ -19,7 +19,7 @@ class CustomerSeeder extends Seeder
             'lastname' => 'customer',
         ]);
 
-        $user->roles()->attach(Role::where('name', 'customer')->first());
+        $user->roles()->attach(Role::where('name', 'Customer')->first());
 
         $user->cust_details()->create([
             'mobile_number' => '09754157431',
@@ -86,7 +86,7 @@ class CustomerSeeder extends Seeder
             'lastname' => 'customer2',
         ]);
 
-        $user->roles()->attach(Role::where('name', 'customer')->first());
+        $user->roles()->attach(Role::where('name', 'Customer')->first());
 
         $user->cust_details()->create([
             'mobile_number' => '097541574312',
