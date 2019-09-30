@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('model');
             $table->string('color');
             $table->bigInteger('price');
+            $table->integer('quantity');
             $table->integer('downpayment');
             $table->date('purchased_date');
             $table->softDeletes();
