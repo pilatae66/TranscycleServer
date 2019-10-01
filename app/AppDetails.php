@@ -8,11 +8,12 @@ class AppDetails extends Model
 {
     protected $fillable = [
         'user_id',
+        'purchased_product_id',
         'application_type',
         'customer_type',
         'requirements',
         'tin',
-        'gsis',
+        'sss',
         'driver_license',
         'gsis'
     ];

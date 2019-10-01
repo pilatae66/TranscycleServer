@@ -25,3 +25,7 @@ Route::apiResources([
 ]);
 
 Route::get('/admins', 'API\UserController@index');
+
+Route::post('/{purchased_product}/app_details', 'API\PurchasedProductController@setAppDetails');
+
+Route::post('/{purchased_product}/app_requirements', 'API\PurchasedProductController@setRequirements');

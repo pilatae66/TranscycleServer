@@ -32,6 +32,24 @@ class PurchasedProductController extends Controller
         return $purchased_product;
     }
 
+    public function setAppDetails(PurchasedProduct $purchased_product, Request $request)
+    {
+        $purchased_product->app_details()->create($request->all());
+
+        return $purchased_product;
+    }
+
+    public function setRequirements(PurchasedProduct $purchased_product, Request $request)
+    {
+        foreach ($request->all() as $requirement) {
+            $purchased_product->app_requirements()->create([
+                'requirement_name' => $requirement
+            ]);
+        }
+
+        return $purchased_product;
+    }
+
     /**
      * Display the specified resource.
      *

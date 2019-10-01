@@ -32,4 +32,9 @@ class PurchasedProduct extends Model
     {
         return $this->hasOne(AppDetails::class);
     }
+
+    public function app_requirements()
+    {
+        return $this->hasMany(AppRequirements::class);
+    }
 }

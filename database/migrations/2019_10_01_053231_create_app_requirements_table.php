@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAppDetailsTable extends Migration
+class CreateAppRequirementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateAppDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('app_details', function (Blueprint $table) {
+        Schema::create('app_requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('purchased_product_id');
             $table->foreign('purchased_product_id')->references('id')->on('purchased_products')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('application_type');
-            $table->string('customer_type');
-            $table->string('tin');
-            $table->string('sss');
-            $table->string('driver_license');
-            $table->string('gsis');
+            $table->string('requirement_name');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ class CreateAppDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('app_details');
+        Schema::dropIfExists('app_requirements');
     }
 }
