@@ -36,7 +36,7 @@ class PurchasedProductController extends Controller
     {
         $purchased_product->app_details()->create($request->all());
 
-        return $purchased_product;
+        return $purchased_product->app_details;
     }
 
     public function setRequirements(PurchasedProduct $purchased_product, Request $request)
@@ -47,7 +47,7 @@ class PurchasedProductController extends Controller
             ]);
         }
 
-        return $purchased_product;
+        return $purchased_product->app_requirements;
     }
 
     /**
