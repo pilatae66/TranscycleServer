@@ -5,7 +5,7 @@ import router from '../routes/routes'
 
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
-let serverURL = 'http://mighty-savannah-84780.herokuapp.com'
+let serverURL = 'http://transcycle-server.herokuapp.com'
 let url = serverURL
 
 
