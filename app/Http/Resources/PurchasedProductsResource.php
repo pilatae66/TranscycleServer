@@ -15,6 +15,7 @@ class PurchasedProductsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'customer' => [
                 'id' => $this->user->id,
                 'name' => $this->user->full_name,
@@ -35,7 +36,7 @@ class PurchasedProductsResource extends JsonResource
             'MC_user_type' => $this->MC_user_type,
             'loan_purpose' => $this->loan_purpose,
             'sales_agent' => $this->sales_agent,
-
+            'requirements' => $this->app_requirements
         ];
     }
 }
