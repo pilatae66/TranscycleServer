@@ -27,7 +27,6 @@ class PurchasedProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         $purchased_product = PurchasedProduct::create($request->all());
 
         return $purchased_product;
