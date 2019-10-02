@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserPaymentResource;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;

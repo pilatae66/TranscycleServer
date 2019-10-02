@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CostumerResource;
 use App\Http\Resources\PurchasedProductsResource;
+use App\Http\Resources\UserPaymentResource;
 use App\Role;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,10 @@ class CostumerController extends Controller
     public function index()
     {
         return CostumerResource::collection(User::whereHas('roles', function(Builder $query){ $query->where('name','Customer'); })->get());
+    }
+
+    public function showUserPayments(){
+        return UserPaymentResource::collection(User::whereHas('roles', function(Builder $query){ $query->where('name', 'Customer'); })->get());
     }
 
     /**

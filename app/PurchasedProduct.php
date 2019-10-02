@@ -38,4 +38,9 @@ class PurchasedProduct extends Model
     {
         return $this->hasMany(AppRequirements::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
