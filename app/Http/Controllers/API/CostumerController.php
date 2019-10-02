@@ -18,7 +18,7 @@ class CostumerController extends Controller
      */
     public function index()
     {
-        return CostumerResource::collection(User::whereHas('roles', function(Builder $query){ $query->where('name','customer'); })->get());
+        return CostumerResource::collection(User::whereHas('roles', function(Builder $query){ $query->where('name','Customer'); })->get());
     }
 
     /**
