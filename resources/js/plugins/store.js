@@ -6,7 +6,7 @@ import router from '../routes/routes'
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://mighty-savannah-84780.herokuapp.com'
-let url = 'https://mighty-savannah-84780.herokuapp.com'
+let url = serverURL
 
 
 export default new Vuex.Store({
