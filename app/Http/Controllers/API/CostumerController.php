@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CostumerResource;
+use App\Http\Resources\PurchasedProductsResource;
 use App\Role;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -126,6 +127,11 @@ class CostumerController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function getPurchasedProducts(User $user)
+    {
+        return PurchasedProductsResource::collection($user->purchased_products);
     }
 
     /**

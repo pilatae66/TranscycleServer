@@ -21,7 +21,8 @@ Route::apiResources([
     'customers' => 'API\CostumerController',
     'roles' => 'API\RoleController',
     'users' => 'API\UserController',
-    'purchased_products' => 'API\PurchasedProductController'
+    'purchased_products' => 'API\PurchasedProductController',
+    'settings' => 'API\SettingsController'
 ]);
 
 Route::get('/admins', 'API\UserController@index');
@@ -29,3 +30,5 @@ Route::get('/admins', 'API\UserController@index');
 Route::post('/{purchased_product}/app_details', 'API\PurchasedProductController@setAppDetails');
 
 Route::post('/{purchased_product}/app_requirements', 'API\PurchasedProductController@setRequirements');
+
+Route::get('/{user}/get_purchase', 'API\CostumerController@getPurchasedProducts');

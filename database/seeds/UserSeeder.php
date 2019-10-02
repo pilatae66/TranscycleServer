@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'lastname' => 'admin',
             'username' => 'admin',
             'password' => bcrypt('admin'), // admin
+            'branch_id' => 1,
             'remember_token' => Str::random(10)
         ]);
 
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'lastname' => 'agent',
             'username' => 'agent',
             'password' => bcrypt('agent'), // agent
+            'branch_id' => 1,
             'remember_token' => Str::random(10)
         ]);
 
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
             'lastname' => 'cashier',
             'username' => 'cashier',
             'password' => bcrypt('cashier'), // cashier
+            'branch_id' => 1,
             'remember_token' => Str::random(10)
         ]);
 
@@ -52,6 +55,7 @@ class UserSeeder extends Seeder
             'lastname' => 'collector',
             'username' => 'collector',
             'password' => bcrypt('collector'), // collector
+            'branch_id' => 1,
             'remember_token' => Str::random(10)
         ]);
 

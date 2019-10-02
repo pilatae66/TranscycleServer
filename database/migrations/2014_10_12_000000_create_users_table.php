@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('username')->nullable();
             $table->string('password')->nullable();
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
