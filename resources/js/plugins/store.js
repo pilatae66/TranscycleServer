@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import CollectorServices from '../src/services/CollectorServices'
 import axios from "axios";
 import Vuex from 'vuex'
 import router from '../routes/routes'
@@ -7,7 +6,7 @@ import router from '../routes/routes'
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://mighty-savannah-84780.herokuapp.com'
-let url = serverURL
+let url = process.env.NODE_ENV !== 'production' ? 'http://localhost:8000' : 'https://mighty-savannah-84780.herokuapp.com'
 
 
 export default new Vuex.Store({
