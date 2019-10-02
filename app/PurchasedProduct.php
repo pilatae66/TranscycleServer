@@ -9,6 +9,7 @@ class PurchasedProduct extends Model
     protected $fillable = [
         'term',
         'amount_finance',
+        'amount_due',
         'monthly_amortization',
         'priority_level',
         'MC_user_type',

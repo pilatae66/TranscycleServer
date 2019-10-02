@@ -31,6 +31,7 @@ class PurchasedProductsResource extends JsonResource
             'app_details' => $this->app_details,
             'term' => $this->term,
             'amount_finance' => $this->amount_finance,
+            'amount_due' => $this->amount_due,
             'monthly_amortization' => $this->monthly_amortization,
             'priority_level' => $this->priority_level,
             'MC_user_type' => $this->MC_user_type,

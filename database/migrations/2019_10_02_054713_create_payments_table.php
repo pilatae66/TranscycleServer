@@ -16,11 +16,10 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('amount');
-            $table->integer('payment_type');
+            $table->string('payment_type');
+            $table->string('remarks');
             $table->unsignedBigInteger('paid_to');
             $table->foreign('paid_to')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('settings')->onUpdate('cascade');
             $table->timestamps();
         });
     }

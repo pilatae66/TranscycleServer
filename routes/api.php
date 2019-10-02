@@ -22,7 +22,8 @@ Route::apiResources([
     'roles' => 'API\RoleController',
     'users' => 'API\UserController',
     'purchased_products' => 'API\PurchasedProductController',
-    'settings' => 'API\SettingsController'
+    'settings' => 'API\SettingsController',
+    'payments' => 'API\PaymentController'
 ]);
 
 Route::get('/admins', 'API\UserController@index');

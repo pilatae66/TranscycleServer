@@ -88,4 +88,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CustReference::class);
     }
+
+    public function branch()
+    {
+        return $this->hasOne(Setting::class, 'id', 'branch_id');
+    }
 }
