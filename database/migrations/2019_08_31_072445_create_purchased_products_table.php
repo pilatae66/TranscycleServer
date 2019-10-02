@@ -17,7 +17,7 @@ class CreatePurchasedProductsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('term');
             $table->integer('amount_finance');
-            $table->integer('monthly_amortization');
+            $table->float('monthly_amortization');
             $table->string('priority_level');
             $table->string('MC_user_type');
             $table->string('loan_purpose');
