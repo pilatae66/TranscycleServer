@@ -80,7 +80,13 @@ public $successStatus = 200;
             'role' => 'required|numeric'
         ]);
 
-        $user = User::create($request->all());
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+            'lastname' => $request->lastname,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
 
         $user->roles()->attach($request->role);
 
