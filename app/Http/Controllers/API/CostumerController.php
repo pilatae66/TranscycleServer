@@ -92,7 +92,7 @@ class CostumerController extends Controller
             'lastname' => $request->customer['customer_name']['lastname']
         ]);
 
-        $user->roles()->attach(Role::where('name', 'customer')->first());
+        $user->roles()->attach(Role::where('name', 'Customer')->first());
 
         $user->cust_details()->create($request->customer['customer_details']);
 
