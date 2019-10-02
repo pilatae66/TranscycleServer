@@ -16,7 +16,7 @@ class PurchasedProductController extends Controller
      */
     public function index()
     {
-        return PurchasedProductsResource::collection(PurchasedProduct::all());
+        return PurchasedProduct::all();
     }
 
     /**
