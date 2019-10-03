@@ -30,21 +30,6 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        router
-        :to="item.to"
-      >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-        </v-list-item>
         <template v-slot:append>
         <div class="pa-2">
           <v-btn block @click="logout">Logout</v-btn>
@@ -106,14 +91,7 @@ export default {
     name: 'App',
     components:{ Login },
     data:() => ({
-        dialog: false,
-        items: [
-            { title: 'Dashboard', icon: 'mdi-view-dashboard', to:'dashboard' },
-            { title: 'Customer', icon: 'mdi-face', to: 'customer' },
-            { title: 'Admin', icon: 'mdi-account-check', to: 'admin' },
-            { title: 'Role', icon: 'mdi-account-check', to: 'role' },
-            { title: 'Products', icon: 'mdi-motorbike', to: 'products' },
-        ],
+        dialog: false
     }),
     created(){
         this.checkAppStatus()

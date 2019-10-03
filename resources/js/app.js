@@ -3,16 +3,18 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import router from './routes/routes'
-import App from './components/App'
-import vuetify from './plugins/vuetify'
-import store from './plugins/store'
-import * as VueGoogleMaps from 'vue2-google-maps'
 
 
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+import router from './routes/router'
+import App from './components/App'
+import vuetify from './plugins/vuetify'
+import store from './plugins/store'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(VueGoogleMaps, {
     load:{
@@ -20,6 +22,7 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places',
     }
 })
+Vue.use(VueSweetalert2)
 
 /**
  * The following block of code may be used to automatically register your
@@ -38,10 +41,11 @@ Vue.use(VueGoogleMaps, {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+new Vue({
     el: '#app',
     components: { App },
     router,
     store,
-    vuetify
-});
+    vuetify,
+    render: h => h(App)
+}).$mount('app')

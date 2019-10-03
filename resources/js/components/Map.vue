@@ -1,9 +1,12 @@
 <template>
+<v-row>
+    <v-col class="pa-0 ma-0">
         <gmap-map
             ref="gmap"
             :center="center"
+            class="pa-0 ma-0"
             :zoom="12"
-            style="width: 80vw; height: 80vh; margin:0; padding:0"
+            style="width: 100vw; height: 85vh;"
             :options="{
                 zoomControl: true,
                 mapTypeControl: false,
@@ -13,13 +16,13 @@
                 fullscreenControl: true,
                 disableDefaultUi: true,
             }"
-            @click="getplace"
         >
-
         <gmap-marker
-            :key="index"
-            v-for="(m, index) in markers"
-            :position="m.position"
+            :position="origin"
+            @click="toggleInfoWindow(m)">
+        </gmap-marker>
+        <gmap-marker
+            :position="destination"
             @click="toggleInfoWindow(m)">
         </gmap-marker>
 
@@ -33,6 +36,8 @@
         </gmap-info-window>
 
         </gmap-map>
+    </v-col>
+</v-row>
 </template>
 <script>
   export default {
@@ -57,16 +62,14 @@
           }
         },
         markers: [
-          {
-            name: "House of Aleida Greve",
-            description: "description 1",
-            date_build: "",
-            position: {lat: 52.512942, lng: 6.089625}
-          },
         ],
-        origin:{},
+        origin:{
+            lat:8.226157,
+            lng:124.240102
+        },
         directionsService:{},
         directionsRenderer:{},
+        destination:{lat: null, lng: null},
         bounds:{}
       };
     },
@@ -80,21 +83,36 @@
         this.directionsRenderer.setMap(map)
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition((position) => {
-                console.log(position);
 
-                this.origin = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                }
-                this.markers[0].position = origin
+                this.origin.lat = parseFloat(position.coords.latitude)
+                this.origin.lng = parseFloat(position.coords.longitude)
 
-                for (let m of this.markers) {
-                    this.bounds.extend(m.position)
-                }
-                this.map.fitBounds(this.bounds);
-                this.map.setZoom(15)
+                this.destination.lat = parseFloat(this.$route.params.customer_location.lat)
+                this.destination.lng = parseFloat(this.$route.params.customer_location.lng)
+
+                console.log(this.origin, this.destination)
+
+                this.bounds.extend(this.origin)
+                this.bounds.extend(this.destination)
+
+                this.map.fitBounds(this.bounds)
+                // Try HTML5 geolocation.
+
+                new google.maps.LatLng(parseFloat(this.destination.lat), parseFloat(this.destination.lng))
+                this.directionsService.route({
+                    origin: new google.maps.LatLng(parseFloat(this.origin.lat), parseFloat(this.origin.lng)),
+                    destination: new google.maps.LatLng(parseFloat(this.destination.lat), parseFloat(this.destination.lng)),
+                    travelMode: 'DRIVING'
+                }, (response, status) => {
+                    if(status == 'OK') {
+                        this.directionsRenderer.setDirections(response)
+                    }
+                    console.log(response);
+
+                })
+
             }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
+                this.handleLocationError(true, infoWindow, map.getCenter());
             });
         } else {
         // Browser doesn't support Geolocation
@@ -123,31 +141,6 @@
           this.infoWinOpen = true;
           this.currentMidx = idx;
         }
-      },
-      getplace(place) {
-            console.log(this.marker);
-            this.markers.push({
-                name: 'Test',
-                description: "description 2",
-                date_build: "",
-                position: { lat: place.latLng.lat(), lng: place.latLng.lng() }
-            })
-
-            // Try HTML5 geolocation.
-
-            let destination = new google.maps.LatLng(this.markers[1].position.lat, this.markers[1].position.lng)
-            this.directionsService.route({
-                origin: new google.maps.LatLng(origin.lat, origin.lng),
-                destination: destination,
-                travelMode: 'WALKING'
-            }, (response, status) => {
-                if(status == 'OK') {
-                    this.directionsRenderer.setDirections(response)
-                }
-                console.log(response);
-
-            })
-
       },
 
       getInfoWindowContent: function (marker) {

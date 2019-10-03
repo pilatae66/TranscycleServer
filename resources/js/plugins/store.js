@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import axios from "axios";
 import Vuex from 'vuex'
-import router from '../routes/routes'
+import router from '../routes/router'
 
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://transcycle-server.herokuapp.com'
-let url = serverURL
+let url = localURL
 
 
 export default new Vuex.Store({
@@ -17,20 +17,27 @@ export default new Vuex.Store({
         auth_user:{
             user:{},
             token:''
-        }
+        },
+        customers:[]
     },
     mutations:{
         LOGIN(state, payload){
-            state.auth_user.user = payload.user
-            state.auth_user.token = payload.token
-            state.loading = false
-            setTimeout(() => {
-                state.loggedIn = true
-            }, 500);
-            state.drawer = true
-            localStorage.setItem('auth_user', JSON.stringify(payload))
-            payload.relogin == true ? '' : router.push('/map')
-
+            if (payload.user.role == 'Collector') {
+                state.auth_user.user = payload.user
+                state.auth_user.token = payload.token
+                state.loading = false
+                setTimeout(() => {
+                    state.loggedIn = true
+                }, 500);
+                state.drawer = true
+                localStorage.setItem('auth_user', JSON.stringify(payload))
+                payload.relogin == true ? '' : router.push('/customerlist')
+                Vue.swal('Success!', 'Logged in Successfully!', 'success')
+            }
+            else{
+                Vue.swal('Error!', 'Invalid Username / Password', 'error')
+                state.loading = false
+            }
         },
         LOGOUT(state){
             state.auth_user = {
@@ -43,6 +50,10 @@ export default new Vuex.Store({
             }, 500);
             localStorage.removeItem('auth_user')
             router.push('/')
+            Vue.swal('Success!', 'Logged out Successfully!', 'success')
+        },
+        CUSTOMERINIT(state, payload){
+            state.customers = payload
         }
     },
     actions:{
@@ -58,9 +69,18 @@ export default new Vuex.Store({
                 console.log(err.response)
             })
         },
+        customerInit({commit, state}){
+            axios({
+                url: `${url}/api/customers`,
+                method: "get",
+            }).then(res => {
+                commit('CUSTOMERINIT', res.data.data)
+            }).catch(err => {
+                console.log(err.response)
+            })
+        },
         checkAppStatus({commit}){
             let auth_user = JSON.parse(localStorage.getItem('auth_user', 0))
-            console.log("test")
             if(auth_user != null){
                 auth_user.relogin = true
                 commit('LOGIN', auth_user)
