@@ -31,7 +31,7 @@ export default new Vuex.Store({
                 }, 500);
                 state.drawer = true
                 localStorage.setItem('auth_user', JSON.stringify(payload))
-                payload.relogin == true ? '' : router.push('/customerlist')
+                router.push('/customerlist')
                 Vue.swal('Success!', 'Logged in Successfully!', 'success')
             }
             else{
