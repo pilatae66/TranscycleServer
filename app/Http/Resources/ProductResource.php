@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -20,10 +21,9 @@ class ProductResource extends JsonResource
             'brand' => $this->brand,
             'model' => $this->model,
             'color' => $this->color,
-            'quantity' => $this->quantity,
             'price' => '₱' . number_format($this->price, 2, '.', ','),
             'downpayment' => '₱' . number_format($this->downpayment, 2, '.', ','),
-            'date_registered' => $this->created_at->toDateString()
+            'date_registered' => Carbon::parse($this->purchased_date)->toDateString()
         ];
     }
 }

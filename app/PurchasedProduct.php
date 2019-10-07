@@ -16,7 +16,8 @@ class PurchasedProduct extends Model
         'loan_purpose',
         'sales_agent',
         'user_id',
-        'product_id'
+        'product_id',
+        'due_date'
     ];
 
     public function user()

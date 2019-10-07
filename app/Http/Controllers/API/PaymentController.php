@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PaymentResource;
 use App\Payment;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -27,7 +28,9 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        return Payment::create($request->all());
+        $payment = Payment::create($request->all());
+        $payment->purchased_product->update([ 'due_date' => Carbon::parse($payment->purchased_product->due_date)->addMonth(1)->toDateString() ]);
+        return $payment;
     }
 
     /**

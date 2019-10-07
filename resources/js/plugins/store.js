@@ -6,7 +6,7 @@ import router from '../routes/router'
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://transcycle-server.herokuapp.com'
-let url = serverURL
+let url = localURL
 
 
 export default new Vuex.Store({
@@ -18,7 +18,8 @@ export default new Vuex.Store({
             user:{},
             token:''
         },
-        customers:[]
+        customers:[],
+        due_customers: []
     },
     mutations:{
         LOGIN(state, payload){
@@ -54,9 +55,22 @@ export default new Vuex.Store({
         },
         CUSTOMERINIT(state, payload){
             state.customers = payload
-        }
+        },
+        DUECUSTOMERSINIT(state, payload){
+          state.due_customers = payload.data
+        },
     },
     actions:{
+        dueCustomersInit({commit}){
+            axios({
+            url: `${url}/api/get_due_costumers`,
+            method:"get"
+            }).then(res => {
+            commit('DUECUSTOMERSINIT', res.data)
+            }).catch(err => {
+            console.log(err.response)
+            })
+        },
         login({state, commit}, payload){
             state.loading = true
             axios({

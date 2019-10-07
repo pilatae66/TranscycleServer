@@ -19,6 +19,7 @@ class CreatePurchasedProductsTable extends Migration
             $table->integer('amount_finance');
             $table->float('amount_due');
             $table->float('monthly_amortization');
+            $table->date('due_date');
             $table->string('priority_level');
             $table->string('MC_user_type');
             $table->string('loan_purpose');

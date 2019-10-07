@@ -28,8 +28,12 @@ Route::apiResources([
 
 Route::get('/admins', 'API\UserController@index');
 
+Route::get('/get_due_costumers', 'API\PurchasedProductController@getDueCustomers');
+
 Route::post('/{purchased_product}/app_details', 'API\PurchasedProductController@setAppDetails');
 
 Route::post('/{purchased_product}/app_requirements', 'API\PurchasedProductController@setRequirements');
 
 Route::get('/{user}/get_purchase', 'API\CostumerController@getPurchasedProducts');
+
+Route::get('/getCustomersWithPurchase', 'API\CostumerController@getCustomersWithPurchase');

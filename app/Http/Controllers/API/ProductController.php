@@ -44,7 +44,6 @@ class ProductController extends Controller
             'color' => 'required|string|max:255',
             'price' => 'required|numeric',
             'downpayment' => 'required|numeric',
-            'quantity' => 'required|numeric',
         ],$messages);
 
         $product = Product::create($request->all());

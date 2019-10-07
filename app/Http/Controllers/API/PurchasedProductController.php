@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PurchasedProductsResource;
 use App\PurchasedProduct;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class PurchasedProductController extends Controller
 {
@@ -27,9 +30,29 @@ class PurchasedProductController extends Controller
      */
     public function store(Request $request)
     {
-        $purchased_product = PurchasedProduct::create($request->all());
+        $dates = [ 1, 5, 9, 12, 16, 20, 23 ];
+        $due_date = "";
+        $day = Carbon::now()->day;
+        foreach ($dates as $key => $date) {
+            if ($day <= $date && $day > $dates[$key-1]) {
+                $due_date = Carbon::parse(Carbon::now()->year."-".(Carbon::now()->month + 1)."-".$date)->toDateString();
+            }
+        }
 
-        return $purchased_product;
+        return PurchasedProduct::create([
+            'term' => $request->term,
+            'amount_finance' => $request->amount_finance,
+            'amount_due' => $request->amount_due,
+            'monthly_amortization' => $request->monthly_amortization,
+            'due_date' => $due_date,
+            'priority_level' => $request->priority_level,
+            'MC_user_type' => $request->MC_user_type,
+            'loan_purpose' => $request->loan_purpose,
+            'sales_agent' => $request->sales_agent,
+            'user_id' => $request->user_id,
+            'product_id' => $request->product_id,
+
+        ]);
     }
 
     public function setAppDetails(PurchasedProduct $purchased_product, Request $request)
@@ -50,15 +73,30 @@ class PurchasedProductController extends Controller
         return $purchased_product->app_requirements;
     }
 
+    public function getDueCustomers()
+    {
+        $users = User::whereHas('purchased_products')->get();
+        $due_users = new Collection();
+        foreach ($users as $key => $user) {
+            $due_date = Carbon::parse($user->purchased_products->due_date);
+            $latest_payment = $user->latest_payment != null  ? $user->latest_payment : Carbon::now();
+            if ($latest_payment >= $due_date) {
+                $due_users->push($user->purchased_products);
+            }
+        }
+
+        return PurchasedProductsResource::collection($due_users);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(PurchasedProduct $purchased_product)
     {
-        //
+        return new PurchasedProductsResource($purchased_product);
     }
 
     /**

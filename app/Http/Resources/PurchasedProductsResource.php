@@ -29,6 +29,7 @@ class PurchasedProductsResource extends JsonResource
             ],
             'product' => $this->product,
             'app_details' => $this->app_details,
+            'due_date' => $this->due_date,
             'term' => $this->term,
             'amount_finance' => $this->amount_finance,
             'amount_due' => $this->amount_due,
@@ -37,7 +38,9 @@ class PurchasedProductsResource extends JsonResource
             'MC_user_type' => $this->MC_user_type,
             'loan_purpose' => $this->loan_purpose,
             'sales_agent' => $this->sales_agent,
-            'requirements' => $this->app_requirements
+            'requirements' => $this->app_requirements,
+            'payments' => $this->payments,
+            'total_payment' => $this->payments->sum('amount')
         ];
     }
 }

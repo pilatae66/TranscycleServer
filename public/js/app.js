@@ -2099,14 +2099,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    customers: 'customers'
+    due_customers: 'due_customers'
   })),
   created: function created() {
-    this.customerInit();
+    this.dueCustomersInit();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['customerInit']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['dueCustomersInit']), {
     getLocation: function getLocation(customer) {
-      console.log(customer);
       _routes_router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
         name: 'map',
         params: {
@@ -2237,16 +2236,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Map",
   data: function data() {
@@ -2279,8 +2268,8 @@ __webpack_require__.r(__webpack_exports__);
       directionsService: {},
       directionsRenderer: {},
       destination: {
-        lat: null,
-        lng: null
+        lat: 8.226157,
+        lng: 124.240102
       },
       bounds: {}
     };
@@ -2327,6 +2316,9 @@ __webpack_require__.r(__webpack_exports__);
           });
         }, function () {
           this.handleLocationError(true, infoWindow, map.getCenter());
+        });
+        navigator.geolocation.watchPosition(function (position) {
+          console.log(position);
         });
       } else {
         // Browser doesn't support Geolocation
@@ -41811,14 +41803,14 @@ var render = function() {
       _c(
         "v-list",
         { staticClass: "ma-0 pa-0" },
-        _vm._l(_vm.customers, function(customer) {
+        _vm._l(_vm.due_customers, function(customer) {
           return _c(
             "div",
             {
               key: customer.id,
               on: {
                 click: function($event) {
-                  return _vm.getLocation(customer)
+                  return _vm.getLocation(customer.customer)
                 }
               }
             },
@@ -41831,7 +41823,9 @@ var render = function() {
                     [
                       _c("v-list-item-title", {
                         staticClass: "text-center",
-                        domProps: { textContent: _vm._s("" + customer.name) }
+                        domProps: {
+                          textContent: _vm._s("" + customer.customer.name)
+                        }
                       })
                     ],
                     1
@@ -42006,28 +42000,7 @@ var render = function() {
                     return _vm.toggleInfoWindow(_vm.m)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c(
-                "gmap-info-window",
-                {
-                  attrs: {
-                    options: _vm.infoOptions,
-                    position: _vm.infoWindowPos,
-                    opened: _vm.infoWinOpen
-                  },
-                  on: {
-                    closeclick: function($event) {
-                      _vm.infoWinOpen = false
-                    }
-                  }
-                },
-                [
-                  _c("div", {
-                    domProps: { innerHTML: _vm._s(_vm.infoContent) }
-                  })
-                ]
-              )
+              })
             ],
             1
           )
@@ -97706,7 +97679,8 @@ var url = localURL;
       user: {},
       token: ''
     },
-    customers: []
+    customers: [],
+    due_customers: []
   },
   mutations: {
     LOGIN: function LOGIN(state, payload) {
@@ -97719,7 +97693,7 @@ var url = localURL;
         }, 500);
         state.drawer = true;
         localStorage.setItem('auth_user', JSON.stringify(payload));
-        payload.relogin == true ? '' : _routes_router__WEBPACK_IMPORTED_MODULE_3__["default"].push('/customerlist');
+        _routes_router__WEBPACK_IMPORTED_MODULE_3__["default"].push('/customerlist');
         vue__WEBPACK_IMPORTED_MODULE_0___default.a.swal('Success!', 'Logged in Successfully!', 'success');
       } else {
         vue__WEBPACK_IMPORTED_MODULE_0___default.a.swal('Error!', 'Invalid Username / Password', 'error');
@@ -97741,12 +97715,26 @@ var url = localURL;
     },
     CUSTOMERINIT: function CUSTOMERINIT(state, payload) {
       state.customers = payload;
+    },
+    DUECUSTOMERSINIT: function DUECUSTOMERSINIT(state, payload) {
+      state.due_customers = payload.data;
     }
   },
   actions: {
-    login: function login(_ref, payload) {
-      var state = _ref.state,
-          commit = _ref.commit;
+    dueCustomersInit: function dueCustomersInit(_ref) {
+      var commit = _ref.commit;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        url: "".concat(url, "/api/get_due_costumers"),
+        method: "get"
+      }).then(function (res) {
+        commit('DUECUSTOMERSINIT', res.data);
+      })["catch"](function (err) {
+        console.log(err.response);
+      });
+    },
+    login: function login(_ref2, payload) {
+      var state = _ref2.state,
+          commit = _ref2.commit;
       state.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         url: "".concat(url, "/api/login"),
@@ -97758,9 +97746,9 @@ var url = localURL;
         console.log(err.response);
       });
     },
-    customerInit: function customerInit(_ref2) {
-      var commit = _ref2.commit,
-          state = _ref2.state;
+    customerInit: function customerInit(_ref3) {
+      var commit = _ref3.commit,
+          state = _ref3.state;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         url: "".concat(url, "/api/customers"),
         method: "get"
@@ -97770,8 +97758,8 @@ var url = localURL;
         console.log(err.response);
       });
     },
-    checkAppStatus: function checkAppStatus(_ref3) {
-      var commit = _ref3.commit;
+    checkAppStatus: function checkAppStatus(_ref4) {
+      var commit = _ref4.commit;
       var auth_user = JSON.parse(localStorage.getItem('auth_user', 0));
 
       if (auth_user != null) {
@@ -97779,8 +97767,8 @@ var url = localURL;
         commit('LOGIN', auth_user);
       }
     },
-    logout: function logout(_ref4) {
-      var commit = _ref4.commit;
+    logout: function logout(_ref5) {
+      var commit = _ref5.commit;
       commit('LOGOUT');
     }
   }
@@ -97872,8 +97860,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! d:\Jann\ClientFiles\Apiag\Transcycle Server\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! d:\Jann\ClientFiles\Apiag\Transcycle Server\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Jann\ClientFiles\Apiag\Transcycle Server\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Jann\ClientFiles\Apiag\Transcycle Server\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

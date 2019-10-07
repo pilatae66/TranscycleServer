@@ -39,9 +39,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function purchased_products()
+    public function purchased_product()
     {
-        return $this->hasMany(PurchasedProduct::class);
+        return $this->hasOne(PurchasedProduct::class);
     }
 
     public function cust_details()
@@ -92,5 +92,10 @@ class User extends Authenticatable
     public function branch()
     {
         return $this->hasOne(Setting::class, 'id', 'branch_id');
+    }
+
+    public function latest_payments()
+    {
+        return $this->hasMany(Payment::class)->latest();
     }
 }

@@ -14,6 +14,7 @@ class CostumerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $has_already_purchased = $this->purchased_product != null ? $this->purchased_product->count() > 0 : false;
         return [
             'id' => $this->id,
             'name' => $this->full_name,
@@ -23,7 +24,8 @@ class CostumerResource extends JsonResource
             'income' => $this->cust_income,
             'liability' => $this->cust_liability,
             'employment_details' => $this->cust_employment_details,
-            'references' => $this->cust_references
+            'references' => $this->cust_references,
+            'has_already_purchased' => $has_already_purchased
         ];
     }
 }

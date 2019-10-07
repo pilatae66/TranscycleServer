@@ -10,6 +10,7 @@ use App\Http\Resources\UserPaymentResource;
 use App\Role;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
+use Twilio\Rest\Client;
 
 class CostumerController extends Controller
 {
@@ -25,6 +26,11 @@ class CostumerController extends Controller
 
     public function showUserPayments(){
         return UserPaymentResource::collection(User::whereHas('roles', function(Builder $query){ $query->where('name', 'Customer'); })->get());
+    }
+
+    public function getCustomersWithPurchase()
+    {
+        return CostumerResource::collection(User::whereHas('purchased_product')->get());
     }
 
     /**
@@ -136,7 +142,7 @@ class CostumerController extends Controller
 
     public function getPurchasedProducts(User $user)
     {
-        return PurchasedProductsResource::collection($user->purchased_products);
+        return new PurchasedProductsResource($user->purchased_product);
     }
 
     /**

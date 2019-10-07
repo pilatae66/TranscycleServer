@@ -25,16 +25,6 @@
             :position="destination"
             @click="toggleInfoWindow(m)">
         </gmap-marker>
-
-        <gmap-info-window
-            :options="infoOptions"
-            :position="infoWindowPos"
-            :opened="infoWinOpen"
-            @closeclick="infoWinOpen=false"
-        >
-            <div v-html="infoContent"></div>
-        </gmap-info-window>
-
         </gmap-map>
     </v-col>
 </v-row>
@@ -69,7 +59,7 @@
         },
         directionsService:{},
         directionsRenderer:{},
-        destination:{lat: null, lng: null},
+        destination:{lat: 8.226157, lng: 124.240102},
         bounds:{}
       };
     },
@@ -113,7 +103,10 @@
 
             }, function() {
                 this.handleLocationError(true, infoWindow, map.getCenter());
-            });
+            })
+            navigator.geolocation.watchPosition(position => {
+                console.log(position)
+            })
         } else {
         // Browser doesn't support Geolocation
         this.handleLocationError(false, infoWindow, map.getCenter());
