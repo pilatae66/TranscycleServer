@@ -29,9 +29,9 @@ class CustomerSeeder extends Seeder
             'date_of_birth' => '1991-05-11',
             'age' => '28',
             'place_of_birth' => 'Iligan City',
-            'civil_status' => 'single',
-            'educational_attainment' => 'College Graduate',
-            'employment_type' => 'self-employed',
+            'civil_status' => 'Single',
+            'educational_attainment' => 'College Grad',
+            'employment_type' => 'Self-Employed',
         ]);
 
         $user->cust_family()->create([
@@ -96,9 +96,9 @@ class CustomerSeeder extends Seeder
             'date_of_birth' => '1992-05-11',
             'age' => '22',
             'place_of_birth' => 'Iligan City2',
-            'civil_status' => 'single2',
-            'educational_attainment' => 'College Graduate2',
-            'employment_type' => 'employed',
+            'civil_status' => 'Married',
+            'educational_attainment' => 'College Grad',
+            'employment_type' => 'Employed',
         ]);
 
         $user->cust_family()->create([

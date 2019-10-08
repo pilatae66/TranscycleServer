@@ -17,7 +17,7 @@ class CostumerResource extends JsonResource
         $has_already_purchased = $this->purchased_product != null ? $this->purchased_product->count() > 0 : false;
         return [
             'id' => $this->id,
-            'name' => $this->full_name,
+            'full_name' => $this->full_name,
             'address' => $this->cust_address,
             'details' => $this->cust_details,
             'family' => $this->cust_family,
@@ -25,7 +25,12 @@ class CostumerResource extends JsonResource
             'liability' => $this->cust_liability,
             'employment_details' => $this->cust_employment_details,
             'references' => $this->cust_references,
-            'has_already_purchased' => $has_already_purchased
+            'has_already_purchased' => $has_already_purchased,
+            'name' => [
+                'firstname' => $this->firstname,
+                'middlename' => $this->middlename,
+                'lastname' => $this->lastname,
+            ]
         ];
     }
 }

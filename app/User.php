@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token'
     ];
 
     public function getFullNameAttribute()
@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function cust_family()
     {
-        return $this->hasMany(CustFamily::class);
+        return $this->hasOne(CustFamily::class);
     }
 
     public function cust_address()
