@@ -109,6 +109,16 @@ class PurchasedProductController extends Controller
     public function update(Request $request, PurchasedProduct $purchased_product)
     {
         $purchased_product->update($request->all());
+
+        $purchased_product->app_details()->update($request->app_details);
+
+        $purchased_product->app_requirements()->delete();
+        foreach ($request->requirements as $requirement) {
+            $purchased_product->app_requirements()->create([
+                'requirement_name' => $requirement
+            ]);
+        }
+
         return new PurchasedProductsResource($purchased_product);
     }
 
@@ -118,8 +128,9 @@ class PurchasedProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PurchasedProduct $purchased_product)
     {
-        //
+        $purchased_product->delete();
+        return response()->json([ 'value' => true]);
     }
 }
