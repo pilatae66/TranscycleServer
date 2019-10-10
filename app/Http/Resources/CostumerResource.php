@@ -24,7 +24,6 @@ class CostumerResource extends JsonResource
             'income' => $this->cust_income,
             'liability' => $this->cust_liability,
             'employment_details' => $this->cust_employment_details,
-            'references' => $this->cust_references,
             'has_already_purchased' => $has_already_purchased,
             'name' => [
                 'firstname' => $this->firstname,
