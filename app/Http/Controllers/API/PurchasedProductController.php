@@ -75,13 +75,13 @@ class PurchasedProductController extends Controller
 
     public function getDueCustomers()
     {
-        $users = User::whereHas('purchased_products')->get();
+        $users = User::whereHas('purchased_product')->get();
         $due_users = new Collection();
         foreach ($users as $key => $user) {
-            $due_date = Carbon::parse($user->purchased_products->due_date);
+            $due_date = Carbon::parse($user->purchased_product->due_date);
             $latest_payment = $user->latest_payment != null  ? $user->latest_payment : Carbon::now();
             if ($latest_payment >= $due_date) {
-                $due_users->push($user->purchased_products);
+                $due_users->push($user->purchased_product);
             }
         }
 

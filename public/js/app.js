@@ -97669,7 +97669,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var localURL = 'http://localhost:8000';
 var serverURL = 'http://transcycle-server.herokuapp.com';
-var url = localURL;
+var url = serverURL;
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {
     loading: false,
@@ -97718,6 +97718,10 @@ var url = localURL;
     },
     DUECUSTOMERSINIT: function DUECUSTOMERSINIT(state, payload) {
       state.due_customers = payload.data;
+    },
+    UNAUTHORIZED: function UNAUTHORIZED(state, payload) {
+      state.loading = false;
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.swal('Error!', payload, 'error');
     }
   },
   actions: {
@@ -97743,7 +97747,8 @@ var url = localURL;
       }).then(function (res) {
         commit('LOGIN', res.data.success);
       })["catch"](function (err) {
-        console.log(err.response);
+        // console.log(err.response)
+        commit('UNAUTHORIZED', err.response.statusText);
       });
     },
     customerInit: function customerInit(_ref3) {

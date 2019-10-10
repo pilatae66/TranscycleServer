@@ -59,16 +59,20 @@ export default new Vuex.Store({
         DUECUSTOMERSINIT(state, payload){
           state.due_customers = payload.data
         },
+        UNAUTHORIZED(state, payload){
+            state.loading = false
+            Vue.swal('Error!', payload, 'error')
+        }
     },
     actions:{
         dueCustomersInit({commit}){
             axios({
-            url: `${url}/api/get_due_costumers`,
-            method:"get"
+                url: `${url}/api/get_due_costumers`,
+                method:"get"
             }).then(res => {
-            commit('DUECUSTOMERSINIT', res.data)
+                commit('DUECUSTOMERSINIT', res.data)
             }).catch(err => {
-            console.log(err.response)
+                console.log(err.response)
             })
         },
         login({state, commit}, payload){
@@ -80,7 +84,8 @@ export default new Vuex.Store({
             }).then(res => {
                 commit('LOGIN', res.data.success)
             }).catch(err => {
-                console.log(err.response)
+                // console.log(err.response)
+                commit('UNAUTHORIZED', err.response.statusText)
             })
         },
         customerInit({commit, state}){

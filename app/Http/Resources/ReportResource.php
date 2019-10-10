@@ -15,7 +15,7 @@ class ReportResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'products_purchased_count' => $request->purchased_products->count()
+            'products_purchased_count' => $request->purchased_product->count()
         ];
     }
 }
