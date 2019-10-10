@@ -15,10 +15,14 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::any('/{any}', function ($id) {
-    return view('layouts.app');
-})->where('any','.*');
+// Route::any('/{any}', function ($id) {
+//     return view('layouts.app');
+// })->where('any','.*');

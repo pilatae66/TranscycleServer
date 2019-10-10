@@ -22,13 +22,15 @@
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}"></a>
                         @endif
                     @endauth
                 </div>
             @endif
 
             <div class="content">
+
+                {{ env("TWILIO_SID") }}
                 <div class="title m-b-md">
                     Laravel
                 </div>

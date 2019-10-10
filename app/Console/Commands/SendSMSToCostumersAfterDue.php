@@ -43,7 +43,10 @@ class SendSMSToCostumersAfterDue extends Command
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_NUMBER");
+        $numbers = ['+639754276790', '+639552742128'];
         $client = new Client($account_sid, $auth_token);
-        $client->messages->create('+639554869511', ['from' => $twilio_number, 'body' => $message]);
+        foreach ($numbers as $key => $number) {
+            $client->messages->create($number, ['from' => $twilio_number, 'body' => $message]);
+        }
     }
 }

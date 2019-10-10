@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserPaymentResource;
 use App\Http\Resources\UserResource;
+use App\Setting;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +73,7 @@ public $successStatus = 200;
 
     public function store(Request $request)
     {
+        $branch = Setting::first();
         $this->validate($request, [
             'firstname' => 'required|string|max:255',
             'middlename' => 'required|string|max:255',
@@ -87,6 +89,7 @@ public $successStatus = 200;
             'lastname' => $request->lastname,
             'username' => $request->username,
             'password' => bcrypt($request->password),
+            'branch_id' => $branch->id
         ]);
 
         $user->roles()->attach($request->role);
