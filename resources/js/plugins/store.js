@@ -68,13 +68,7 @@ export default new Vuex.Store({
         dueCustomersInit({commit}){
             axios({
                 url: `${url}/api/get_due_costumers`,
-                method:"get",
-                headers: {
-                  'Access-Control-Allow-Credentials' : true,
-                  'Access-Control-Allow-Origin':'*',
-                  'Access-Control-Allow-Methods':'GET',
-                  'Access-Control-Allow-Headers':'application/json',
-                }
+                method:"get"
             }).then(res => {
                 commit('DUECUSTOMERSINIT', res.data)
             }).catch(err => {
@@ -90,7 +84,7 @@ export default new Vuex.Store({
             }).then(res => {
                 commit('LOGIN', res.data.success)
             }).catch(err => {
-                // console.log(err.response)
+                console.log(err.response)
                 commit('UNAUTHORIZED', err.response.statusText)
             })
         },
