@@ -84,7 +84,7 @@ export default new Vuex.Store({
             }).then(res => {
                 commit('LOGIN', res.data.success)
             }).catch(err => {
-                console.log(err.response)
+                console.log(err)
                 commit('UNAUTHORIZED', err.response.statusText)
             })
         },
