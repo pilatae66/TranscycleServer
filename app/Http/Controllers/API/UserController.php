@@ -20,7 +20,7 @@ public $successStatus = 200;
      */
     public function login(){
         if(Auth::attempt(['username' => request('username'), 'password' => request('password')])){
-            $user = Auth::user();
+            $user = auth()->user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['user'] =  new UserResource($user);
             return response()->json(['success' => $success], $this->successStatus);
