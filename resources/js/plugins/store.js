@@ -68,7 +68,13 @@ export default new Vuex.Store({
         dueCustomersInit({commit}){
             axios({
                 url: `${url}/api/get_due_costumers`,
-                method:"get"
+                method:"get",
+                headers: {
+                  'Access-Control-Allow-Credentials' : true,
+                  'Access-Control-Allow-Origin':'*',
+                  'Access-Control-Allow-Methods':'GET',
+                  'Access-Control-Allow-Headers':'application/json',
+                }
             }).then(res => {
                 commit('DUECUSTOMERSINIT', res.data)
             }).catch(err => {
