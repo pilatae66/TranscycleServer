@@ -25,8 +25,7 @@ class PurchasedProductsResource extends JsonResource
                 'family' => $this->user->cust_family,
                 'income' => $this->user->cust_income,
                 'liability' => $this->user->cust_liability,
-                'employment_details' => $this->user->cust_employment_details,
-                'references' => $this->user->cust_references
+                'employment_details' => $this->user->cust_employment_details
             ],
             'product' => $this->product,
             'product_name' => "{$this->product->brand} {$this->product->model}",

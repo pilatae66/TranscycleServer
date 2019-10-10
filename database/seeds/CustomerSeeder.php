@@ -139,25 +139,6 @@ class CustomerSeeder extends Seeder
             'amount' => '2000'
         ]);
 
-        $user->cust_references()->create([
-            'name' => 'reference1',
-            'address' => 'address1',
-            'contact_number' => 'contact_number1',
-            'relation' => 'relation1',
-        ]);
-        $user->cust_references()->create([
-            'name' => 'reference2',
-            'address' => 'address2',
-            'contact_number' => 'contact_number=2',
-            'relation' => 'relation2',
-        ]);
-        $user->cust_references()->create([
-            'name' => 'reference3',
-            'address' => 'address3',
-            'contact_number' => 'contact_number3',
-            'relation' => 'relation3',
-        ]);
-
         $user->cust_employed()->create([
             'type_of_org' => 'private',
             'company_name' => 'LonerDev',

@@ -20,18 +20,18 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class
         ]);
 
-        $this->call([
-            UserSeeder::class
-        ]);
+        // $this->call([
+        //     UserSeeder::class
+        // ]);
 
-        $this->call([
-            CustomerSeeder::class
-        ]);
+        // $this->call([
+        //     CustomerSeeder::class
+        // ]);
 
         $this->call([
             SettingsSeeder::class
         ]);
 
-        factory(Product::class, 100)->create();
+        // factory(Product::class, 100)->create();
     }
 }

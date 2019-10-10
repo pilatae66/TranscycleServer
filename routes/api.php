@@ -37,3 +37,5 @@ Route::post('/{purchased_product}/app_requirements', 'API\PurchasedProductContro
 Route::get('/{user}/get_purchase', 'API\CostumerController@getPurchasedProducts');
 
 Route::get('/getCustomersWithPurchase', 'API\CostumerController@getCustomersWithPurchase');
+
+Route::post('/generateReport', 'API\ReportsController@generateReport');
