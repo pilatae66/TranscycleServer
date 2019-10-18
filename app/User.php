@@ -81,6 +81,7 @@ class User extends Authenticatable
 
     public function cust_employment_details()
     {
+        if($this->cust_details == null) return;
         return $this->cust_details->employment_type === 'Self-Employed' ? $this->hasOne(SelfEmployedCust::class) : $this->hasOne(EmployedCust::class);
     }
 
