@@ -28,15 +28,15 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $users = User::whereHas('purchased_product')->with('purchased_product')->get();
-        foreach ($users as $key => $user) {
-            if (Carbon::parse($user->purchased_product->due_date)->subDay(1)->day == Carbon::now()->day) {
-                $schedule->command("customer:beforedue {$user->firstname}");
-            }
-            else if (Carbon::parse($user->purchased_product->due_date)->day <= Carbon::now()->day) {
-                $schedule->command("customer:afterdue {$user->firstname}");
-            }
-        }
+        // $users = User::whereHas('purchased_product')->with('purchased_product')->get();
+        // foreach ($users as $key => $user) {
+        //     if (Carbon::parse($user->purchased_product->due_date)->subDay(1)->day == Carbon::now()->day) {
+        //         $schedule->command("customer:beforedue {$user->firstname}");
+        //     }
+        //     else if (Carbon::parse($user->purchased_product->due_date)->day <= Carbon::now()->day) {
+        //         $schedule->command("customer:afterdue {$user->firstname}");
+        //     }
+        // }
     }
 
     /**

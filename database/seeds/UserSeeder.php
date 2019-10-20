@@ -25,41 +25,41 @@ class UserSeeder extends Seeder
 
         $user->roles()->attach(Role::where('name', 'Admin')->first());
 
-        // $user = User::create([
-        //     'firstname' => 'super',
-        //     'middlename' => 'duper',
-        //     'lastname' => 'agent',
-        //     'username' => 'agent',
-        //     'password' => bcrypt('agent'), // agent
-        //     'branch_id' => 1,
-        //     'remember_token' => Str::random(10)
-        // ]);
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'agent',
+            'username' => 'agent',
+            'password' => bcrypt('agent'), // agent
+            'branch_id' => 1,
+            'remember_token' => Str::random(10)
+        ]);
 
-        // $user->roles()->attach(Role::where('name', 'Agent')->first());
+        $user->roles()->attach(Role::where('name', 'Agent')->first());
 
-        // $user = User::create([
-        //     'firstname' => 'super',
-        //     'middlename' => 'duper',
-        //     'lastname' => 'cashier',
-        //     'username' => 'cashier',
-        //     'password' => bcrypt('cashier'), // cashier
-        //     'branch_id' => 1,
-        //     'remember_token' => Str::random(10)
-        // ]);
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'cashier',
+            'username' => 'cashier',
+            'password' => bcrypt('cashier'), // cashier
+            'branch_id' => 1,
+            'remember_token' => Str::random(10)
+        ]);
 
-        // $user->roles()->attach(Role::where('name', 'Cashier')->first());
+        $user->roles()->attach(Role::where('name', 'Cashier')->first());
 
-        // $user = User::create([
-        //     'firstname' => 'super',
-        //     'middlename' => 'duper',
-        //     'lastname' => 'collector',
-        //     'username' => 'collector',
-        //     'password' => bcrypt('collector'), // collector
-        //     'branch_id' => 1,
-        //     'remember_token' => Str::random(10)
-        // ]);
+        $user = User::create([
+            'firstname' => 'super',
+            'middlename' => 'duper',
+            'lastname' => 'collector',
+            'username' => 'collector',
+            'password' => bcrypt('collector'), // collector
+            'branch_id' => 1,
+            'remember_token' => Str::random(10)
+        ]);
 
-        // $user->roles()->attach(Role::where('name', 'Collector')->first());
+        $user->roles()->attach(Role::where('name', 'Collector')->first());
 
     }
 }
