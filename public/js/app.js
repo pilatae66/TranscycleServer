@@ -2110,9 +2110,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: 'map',
         params: {
           customer_location: {
-            lat: customer.address.lat,
-            lng: customer.address.lng
-          }
+            lat: customer.customer.address.lat,
+            lng: customer.customer.address.lng
+          },
+          customer: customer
         }
       });
     }
@@ -2236,6 +2237,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Map",
   data: function data() {
@@ -2245,6 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
         lat: 8.226157,
         lng: 124.240102
       },
+      dialog: false,
       map: null,
       infoContent: '',
       infoWindowPos: {
@@ -2271,7 +2326,9 @@ __webpack_require__.r(__webpack_exports__);
         lat: 8.226157,
         lng: 124.240102
       },
-      bounds: {}
+      bounds: {},
+      customer: null,
+      total_payments: 0
     };
   },
   mounted: function mounted() {
@@ -2325,6 +2382,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.handleLocationError(false, infoWindow, map.getCenter());
       }
     });
+  },
+  created: function created() {
+    this.customer = this.$route.params.customer;
+    this.total_payments = this.customer.payments.reduce(function (total, current) {
+      return total + current.amount;
+    }, 0);
+    console.log(this.customer);
   },
   methods: {
     handleLocationError: function handleLocationError() {
@@ -41810,7 +41874,7 @@ var render = function() {
               key: customer.id,
               on: {
                 click: function($event) {
-                  return _vm.getLocation(customer.customer)
+                  return _vm.getLocation(customer)
                 }
               }
             },
@@ -41963,6 +42027,140 @@ var render = function() {
         "v-col",
         { staticClass: "pa-0 ma-0" },
         [
+          _c(
+            "v-dialog",
+            {
+              attrs: { width: "500" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g(
+                          {
+                            staticStyle: {
+                              "margin-bottom": "-100px",
+                              "margin-left": "10px",
+                              "z-index": "1"
+                            },
+                            attrs: { color: "blue", dark: "" }
+                          },
+                          on
+                        ),
+                        [_vm._v("\n            Customer Details\n            ")]
+                      )
+                    ]
+                  }
+                }
+              ]),
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-card-title",
+                    {
+                      staticClass: "headline blue text-white",
+                      attrs: { "primary-title": "" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(this.customer.customer.name) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-col", [
+                            _vm._v(
+                              "\n                        Monthly Amortization: "
+                            ),
+                            _c("br"),
+                            _vm._v(" P4,611.00\n                    ")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-col", [
+                            _vm._v("\n                        Amount Due: "),
+                            _c("br"),
+                            _vm._v(" P40,000.00\n                    ")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-col", [
+                            _vm._v(
+                              "\n                        Total Payments: "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              " P" +
+                                _vm._s(
+                                  new Intl.NumberFormat("en-US", {
+                                    minimumFractionDigits: 2
+                                  }).format(this.total_payments)
+                                ) +
+                                "\n                    "
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary", text: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("\n                Close\n            ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "gmap-map",
             {
@@ -97669,7 +97867,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var localURL = 'http://localhost:8000';
 var serverURL = 'http://transcycle-server.herokuapp.com';
-var url = serverURL;
+var url = localURL;
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {
     loading: false,
@@ -97747,7 +97945,7 @@ var url = serverURL;
       }).then(function (res) {
         commit('LOGIN', res.data.success);
       })["catch"](function (err) {
-        // console.log(err.response)
+        console.log(err);
         commit('UNAUTHORIZED', err.response.statusText);
       });
     },

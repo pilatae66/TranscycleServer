@@ -1,6 +1,59 @@
 <template>
 <v-row>
     <v-col class="pa-0 ma-0">
+        <v-dialog
+        v-model="dialog"
+        width="500"
+        >
+        <template v-slot:activator="{ on }">
+            <v-btn
+            color="blue"
+            dark
+            v-on="on"
+            style="margin-bottom: -100px; margin-left: 10px; z-index: 1"
+            >
+            Customer Details
+            </v-btn>
+        </template>
+
+        <v-card>
+            <v-card-title
+            class="headline blue text-white"
+            primary-title
+            >
+            {{ this.customer.customer.name }}
+            </v-card-title>
+
+            <v-card-text>
+                <v-row>
+                    <v-col>
+                        Monthly Amortization: <br> P4,611.00
+                    </v-col>
+                    <v-col>
+                        Amount Due: <br> P40,000.00
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col>
+                        Total Payments: <br> P{{ new Intl.NumberFormat('en-US', { minimumFractionDigits: 2}).format(this.total_payments) }}
+                    </v-col>
+                </v-row>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="primary"
+                text
+                @click="dialog = false"
+            >
+                Close
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
         <gmap-map
             ref="gmap"
             :center="center"
@@ -36,6 +89,7 @@
       return {
         //a default center for the map
         center: {lat:8.226157, lng:124.240102},
+        dialog: false,
         map: null,
         infoContent: '',
         infoWindowPos: {
@@ -60,7 +114,9 @@
         directionsService:{},
         directionsRenderer:{},
         destination:{lat: 8.226157, lng: 124.240102},
-        bounds:{}
+        bounds:{},
+        customer: null,
+        total_payments: 0
       };
     },
     mounted() {
@@ -112,6 +168,11 @@
         this.handleLocationError(false, infoWindow, map.getCenter());
         }
       });
+    },
+    created(){
+        this.customer = this.$route.params.customer
+        this.total_payments = this.customer.payments.reduce((total, current) => total + current.amount, 0)
+        console.log(this.customer)
     },
     methods: {
         handleLocationError(){

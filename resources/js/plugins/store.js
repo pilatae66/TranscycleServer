@@ -6,7 +6,7 @@ import router from '../routes/router'
 Vue.use(Vuex)
 let localURL = 'http://localhost:8000'
 let serverURL = 'http://transcycle-server.herokuapp.com'
-let url = serverURL
+let url = localURL
 
 
 export default new Vuex.Store({

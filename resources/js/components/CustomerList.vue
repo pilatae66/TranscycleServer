@@ -12,7 +12,7 @@
       <v-toolbar-title>Customer List</v-toolbar-title>
   </v-toolbar>
   <v-list class="ma-0 pa-0">
-      <div v-for="customer in due_customers" :key="customer.id" @click="getLocation(customer.customer)">
+      <div v-for="customer in due_customers" :key="customer.id" @click="getLocation(customer)">
         <v-list-item >
         <v-list-item-content>
             <v-list-item-title class="text-center" v-text="`${customer.customer.name}`"></v-list-item-title>
@@ -41,7 +41,13 @@ export default {
             'dueCustomersInit'
         ]),
         getLocation(customer){
-            router.push({ name: 'map', params:{ customer_location: { lat: customer.address.lat, lng: customer.address.lng } } })
+            router.push({ name: 'map', params:{
+                customer_location: {
+                    lat: customer.customer.address.lat,
+                    lng: customer.customer.address.lng
+                },
+                customer: customer
+            }})
         }
     }
 }
